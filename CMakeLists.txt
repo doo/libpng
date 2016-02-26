@@ -128,6 +128,11 @@ if(PNG_STATIC)
   # does not work without changing name
   set(PNG_LIB_NAME_STATIC ${PNG_LIB_NAME}_static)
   add_library(${PNG_LIB_NAME_STATIC} STATIC ${libpng_sources})
+
+  if( CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" )
+      set_target_properties(${PNG_LIB_NAME_STATIC} PROPERTIES COMPILE_FLAGS "-fPIC")
+  endif( CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" )
+
   list(APPEND PNG_LIB_TARGETS ${PNG_LIB_NAME_STATIC})
   if(MSVC)
     # msvc does not append 'lib' - do it here to have consistent name
